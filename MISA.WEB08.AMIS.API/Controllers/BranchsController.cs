@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace MISA.WEB08.AMIS.API.Controllers
 {
     /// <summary>
-    /// API dữ liệu với bảng unit
+    /// API dữ liệu với bảng branch
     /// </summary>
     /// Created by : Nguyễn Khắc Tiềm (21/09/2022)
     [Authorize]
@@ -13,15 +13,15 @@ namespace MISA.WEB08.AMIS.API.Controllers
     {
         #region Field
 
-        private IBranchBL _unitBL;
+        private IBranchBL _branchBL;
 
         #endregion
 
         #region Contructor
 
-        public BranchsController(IBranchBL unitBL) : base(unitBL)
+        public BranchsController(IBranchBL branchBL) : base(branchBL)
         {
-            _unitBL = unitBL;
+            _branchBL = branchBL;
         }
 
         #endregion

@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "azD63m6+Wg1qpWtdDWeDKutUs2jm24+UjZpzlSBPibw9/yL3Go7kftKl3JN0bzTKzDJutry1XL25+XjGEu35yw==",
+  "dgSpecHash": "d4Fp1P7bEkMDBLUD646htD1HEMVuFAksNY1lqfWyR7536nIghRn2dYIww3Rjd6rGgO51mxUFuS1FzUqslQE0lQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Khac Tiem\\Downloads\\src_do_an_lam_thue\\MISA.WEB08.AMIS\\MISA.WEB08.AMIS.DL\\MISA.WEB08.AMIS.DL.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Downloads\\src_do_an_lam_thue\\amis.product.be\\MISA.WEB08.AMIS.DL\\MISA.WEB08.AMIS.DL.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Khac Tiem\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
-    "C:\\Users\\Khac Tiem\\.nuget\\packages\\mysqlconnector\\2.1.13\\mysqlconnector.2.1.13.nupkg.sha512",
-    "C:\\Users\\Khac Tiem\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\Khac Tiem\\.nuget\\packages\\npgsql\\5.0.15\\npgsql.5.0.15.nupkg.sha512",
-    "C:\\Users\\Khac Tiem\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
+    "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\mysqlconnector\\2.1.13\\mysqlconnector.2.1.13.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\npgsql\\5.0.15\\npgsql.5.0.15.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
   ],
   "logs": []
 }
