@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using MISA.WEB08.AMIS.Common.Attributes;
+using System.Reflection;
+using OfficeOpenXml;
+using MISA.WEB08.AMIS.Common.Resources;
+using OfficeOpenXml.Style;
 
 namespace MISA.WEB08.AMIS.BL
 {
@@ -156,6 +160,14 @@ namespace MISA.WEB08.AMIS.BL
                 {
                     continue;
                 }
+                if (!string.IsNullOrEmpty(item.Gender))
+                {
+                    if (!Validate<ProductImport>.IsGender(item.Gender))
+                    {
+                        setFail(ref item, ref listFail, ref check, "Gender");
+                        continue;
+                    }
+                }
                 item.ProductID = null;
                 item.DepotID = null;
                 item.CategoryID = null;
@@ -163,6 +175,23 @@ namespace MISA.WEB08.AMIS.BL
                 item.TrademarkID = null;
                 list.Add(JsonConvert.DeserializeObject<Product>(JsonConvert.SerializeObject(item).ToString()));
             }
+        }
+
+        /// <summary>
+        /// Hàm custom dữ liệu xuất file
+        /// </summary>
+        /// <param name="property">Cột dữ liệu cần custom</param>
+        /// <returns>Trả ra false khi không custom gì</returns>
+        ///  NK Tiềm 05/10/2022
+        public override bool CustomValuePropertieExport(PropertyInfo property, ref ExcelWorksheet sheet, int indexRow, int indexBody, Product product)
+        {
+            if (property.Name == "Gender")
+            {
+                sheet.Cells[indexRow + 4, indexBody].Value = product.Gender == Gender.Male ? Resource.GenderMale : product.Gender == Gender.Female ? Resource.GenderFemale : Resource.GenderOther;
+                sheet.Cells[indexRow + 4, indexBody].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

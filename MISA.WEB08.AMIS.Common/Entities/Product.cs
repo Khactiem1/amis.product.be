@@ -1,4 +1,5 @@
 ﻿using MISA.WEB08.AMIS.Common.Attributes;
+using MISA.WEB08.AMIS.Common.Enums;
 using System;
 
 namespace MISA.WEB08.AMIS.Common.Entities
@@ -108,6 +109,25 @@ namespace MISA.WEB08.AMIS.Common.Entities
         /// </summary>
         [ColumnName(Name = "Giá bán", Width = 25, IsNumber = true)]
         public double? Price { get; set; }
+
+        /// <summary>
+        /// Mô tả
+        /// </summary>
+        [ColumnName(Name = "Chất liệu", Width = 45)]
+        public string Material { get; set; }
+
+        /// <summary>
+        /// giới tính
+        /// </summary>
+        [Validate(IsNotNullOrEmpty = true, ErrorMessage = "validate.empty")]
+        [ColumnName(Name = "Giới tính", Width = 10, IsGender = true)]
+        public Gender? Gender { get; set; }
+
+        /// <summary>
+        /// Mô tả
+        /// </summary>
+        [ColumnName(Name = "Thời lượng pin", Width = 45)]
+        public string BatteryLife { get; set; }
 
         /// <summary>
         /// Mô tả
@@ -224,6 +244,21 @@ namespace MISA.WEB08.AMIS.Common.Entities
         /// </summary>
         [ValidateString(IsNumber = true)]
         public double? Price { get; set; }
+
+        /// <summary>
+        /// Mô tả
+        /// </summary>
+        public string Material { get; set; }
+
+        /// <summary>
+        /// giới tính
+        /// </summary>
+        public string? Gender { get; set; }
+
+        /// <summary>
+        /// Mô tả
+        /// </summary>
+        public string BatteryLife { get; set; }
 
         /// <summary>
         /// Mô tả
