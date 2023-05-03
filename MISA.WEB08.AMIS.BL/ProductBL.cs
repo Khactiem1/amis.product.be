@@ -22,20 +22,22 @@ namespace MISA.WEB08.AMIS.BL
     {
         #region Field
 
-        private IProductDL _ProductDL;
+        private IProductDL _productDL;
 
         #endregion
 
         #region Contructor
 
-        public ProductBL(IProductDL ProductDL) : base(ProductDL)
+        public ProductBL(IProductDL productDL) : base(productDL)
         {
-            _ProductDL = ProductDL;
+            _productDL = productDL;
         }
 
         #endregion
 
         #region Method
+
+        #region overidve
 
         /// <summary>
         /// Hàm xử lý custom kết quả validate cho bản ghi cần validate
@@ -206,6 +208,42 @@ namespace MISA.WEB08.AMIS.BL
                 FileName = "Danh sách hàng hoá",
                 Header = "DANH SÁCH HÀNG HOÁ"
             };
+        }
+
+        #endregion
+
+        /// <summary>
+        /// API lấy ra 10 sản phẩm mới nhất
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        public object GetProductHome(Dictionary<string, object> formData)
+        {
+            var v_KeyWord = formData.Keys.Contains("v_KeyWord") ? Convert.ToString(formData["v_KeyWord"]) : "";
+            return _productDL.GetProductHome(v_KeyWord);
+        }
+
+        /// <summary>
+        /// API lấy ra 10 sản phẩm mới nhất
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        public object GetProductHot()
+        {
+            return _productDL.GetProductHot();
+        }
+
+        /// <summary>
+        /// API lấy ra 10 sản phẩm mới nhất
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        public object GetProductPrice()
+        {
+            return _productDL.GetProductPrice();
         }
 
         #endregion

@@ -44,6 +44,46 @@ namespace MISA.WEB08.AMIS.DL
             parameters.Add($"v_lengthNumber", number.Length);
         }
 
+        /// <summary>
+        /// API lấy ra 10 sản phẩm mới nhất
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        public object GetProductHome(string keyWord)
+        {
+            // Khởi tạo các parameter để chèn vào trong Proc
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add($"v_KeyWord", keyWord);
+            // Khai báo stored procedure
+            string storeProcedureName = "Proc_product_GetProductHome";
+            return _dbHelper.RunProcWithQuery(storeProcedureName, parameters);
+        }
+
+        /// <summary>
+        /// API lấy ra 10 sản phẩm mới nhất
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        public object GetProductHot()
+        {
+            string storeProcedureName = "Proc_Product_GetProductHot";
+            return _dbHelper.RunProcWithQuery(storeProcedureName, null);
+        }
+
+        /// <summary>
+        /// API lấy ra 10 sản phẩm mới nhất
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        public object GetProductPrice()
+        {
+            string storeProcedureName = "Proc_Product_GetProductPrice";
+            return _dbHelper.RunProcWithQuery(storeProcedureName, null);
+        }
+
         #endregion
     }
 }
