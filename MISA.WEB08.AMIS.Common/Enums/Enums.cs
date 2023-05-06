@@ -44,4 +44,22 @@ namespace MISA.WEB08.AMIS.Common.Enums
         /// </summary>
         LeftJoin = 2,
     }
+
+
+    /// <summary>
+    /// Kiểu thanh toán
+    /// </summary>
+    /// Create by: Nguyễn Khắc Tiềm (21/09/2022)
+    public enum TypeCheckout : int
+    {
+        /// <summary>
+        /// Chuyển khoản trực tiếp
+        /// </summary>
+        Live = 0,
+
+        /// <summary>
+        /// Kiểm tra hàng và thanh toán
+        /// </summary>
+        Check = 1,
+    }
 }

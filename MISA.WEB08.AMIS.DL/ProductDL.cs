@@ -1,5 +1,9 @@
 ﻿using Dapper;
 using MISA.WEB08.AMIS.Common.Entities;
+using MISA.WEB08.AMIS.Common.Result;
+using MySqlConnector;
+using System.Data;
+using System.Linq;
 
 namespace MISA.WEB08.AMIS.DL
 {
@@ -82,6 +86,54 @@ namespace MISA.WEB08.AMIS.DL
         {
             string storeProcedureName = "Proc_Product_GetProductPrice";
             return _dbHelper.RunProcWithQuery(storeProcedureName, null);
+        }
+
+        /// <summary>
+        /// Hàm lấy ra danh sách record có lọc và phân trang
+        /// </summary>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        public Paging GetFitterShops(string v_KeyWord, double v_PriceStart, double v_PriceEnd, string v_CategoryID, string v_TrademarkID, string v_OriginID, string v_DepotID, int v_Page)
+        {
+            Paging result;
+            // Khởi tạo các parameter để chèn vào trong Proc
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("v_KeyWord", v_KeyWord);
+            parameters.Add("v_PriceStart", v_PriceStart);
+            parameters.Add("v_PriceEnd", v_PriceEnd);
+            parameters.Add("v_CategoryID", v_CategoryID);
+            parameters.Add("v_TrademarkID", v_TrademarkID);
+            parameters.Add("v_OriginID", v_OriginID);
+            parameters.Add("v_DepotID", v_DepotID);
+            parameters.Add("v_Page", v_Page);
+
+            // chuẩn bị câu lệnh MySQL
+            string storeProcedureName = "Proc_product_GetProductShop";
+
+            using (var mysqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
+            {
+                //nếu như kết nối đang đóng thì tiến hành mở lại
+                if (mysqlConnection.State != ConnectionState.Open)
+                {
+                    mysqlConnection.Open();
+                }
+                // thực hiện gọi vào DB
+                var records = mysqlConnection.QueryMultiple(
+                    storeProcedureName,
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                    );
+                result = new Paging
+                {
+                    RecordList = records.Read<Product>().ToList(),
+                    TotalCount = records.ReadSingle().totalCount
+                };
+                if (mysqlConnection.State == ConnectionState.Open)
+                {
+                    mysqlConnection.Close();
+                }
+            }
+            return result;
         }
 
         #endregion

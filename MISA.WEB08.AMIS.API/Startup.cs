@@ -71,6 +71,8 @@ namespace MISA.WEB08.AMIS.API
             services.AddScoped<IProductDL, ProductDL>();
             services.AddScoped<ITrademarkBL, TrademarkBL>();
             services.AddScoped<ITrademarkDL, TrademarkDL>();
+            services.AddScoped<ICartBL, CartBL>();
+            services.AddScoped<ICartDL, CartDL>();
             services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
             services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
             DataContext.MySqlConnectionString = Configuration.GetConnectionString("DefaultConnection");

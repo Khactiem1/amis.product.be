@@ -168,6 +168,39 @@ namespace MISA.WEB08.AMIS.API.Controllers
             });
         }
 
+        /// <summary> 
+        /// API trả về danh sách đã lọc và phân trang
+        /// <summary>
+        /// <param name="formData">Trường muốn filter và sắp xếp</param>
+        /// <return> Danh sách bản ghi sau khi phân trang, chỉ lấy ra số bản ghi và số trang yêu cầu, và tổng số lượg bản ghi có điều kiện <return>
+        /// Create by: Nguyễn Khắc Tiềm (21/09/2022)
+        [AllowAnonymous]
+        [HttpPost("FilterShop")]
+        public virtual async Task<IActionResult> GetFitterShops([FromBody] Dictionary<string, object> formData)
+        {
+            var records = await Task.FromResult(_productBL.GetFitterShops(formData));
+            if (records != null)
+            {
+                return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+                {
+                    Success = true,
+                    Data = records
+                });
+            }
+            return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+            {
+                Success = false,
+                ErrorCode = MisaAmisErrorCode.NotFoundData,
+                Data = new MisaAmisErrorResult(
+                        MisaAmisErrorCode.NotFoundData,
+                        Resource.DevMsg_Exception,
+                        Resource.Message_data_change,
+                        Resource.MoreInfo_Exception,
+                        HttpContext.TraceIdentifier
+                    )
+            });
+        }
+
         #endregion
     }
 }

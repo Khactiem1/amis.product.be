@@ -1,4 +1,5 @@
 ﻿using MISA.WEB08.AMIS.Common.Entities;
+using MISA.WEB08.AMIS.Common.Result;
 using System.Collections.Generic;
 
 namespace MISA.WEB08.AMIS.BL
@@ -32,5 +33,13 @@ namespace MISA.WEB08.AMIS.BL
         /// <returns>Danh sách record và tổng số bản ghi</returns>
         /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
         public object GetProductPrice();
+
+        /// <summary>
+        /// Hàm lấy ra danh sách record có lọc và phân trang
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        public Paging GetFitterShops(Dictionary<string, object> formData);
     }
 }

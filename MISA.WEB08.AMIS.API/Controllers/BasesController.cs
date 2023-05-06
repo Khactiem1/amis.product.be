@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MISA.WEB08.AMIS.BL;
 using MISA.WEB08.AMIS.Common.Entities;
@@ -78,6 +79,7 @@ namespace MISA.WEB08.AMIS.API.Controllers
         /// </summary>
         /// <returns>Danh sách tất cả bản ghi</returns>
         /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        [AllowAnonymous]
         [HttpGet("dropdown")]
         public virtual async Task<IActionResult> GetDropdown()
         {

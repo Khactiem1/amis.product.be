@@ -246,6 +246,25 @@ namespace MISA.WEB08.AMIS.BL
             return _productDL.GetProductPrice();
         }
 
+        /// <summary>
+        /// Hàm lấy ra danh sách record có lọc và phân trang
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        public Paging GetFitterShops(Dictionary<string, object> formData)
+        {
+            var v_PriceStart = double.Parse(formData["v_PriceStart"].ToString());
+            var v_PriceEnd = double.Parse(formData["v_PriceEnd"].ToString());
+            var v_Page = int.Parse(formData["v_Page"].ToString());
+            var v_KeyWord = formData.Keys.Contains("v_KeyWord") ? Convert.ToString(formData["v_KeyWord"]).Trim() : "";
+            var v_CategoryID = formData.Keys.Contains("v_CategoryID") ? Convert.ToString(formData["v_CategoryID"]).Trim() : "";
+            var v_TrademarkID = formData.Keys.Contains("v_TrademarkID") ? Convert.ToString(formData["v_TrademarkID"]).Trim() : "";
+            var v_OriginID = formData.Keys.Contains("v_OriginID") ? Convert.ToString(formData["v_OriginID"]).Trim() : "";
+            var v_DepotID = formData.Keys.Contains("v_DepotID") ? Convert.ToString(formData["v_DepotID"]).Trim() : "";
+            return _productDL.GetFitterShops(v_KeyWord, v_PriceStart, v_PriceEnd, v_CategoryID, v_TrademarkID, v_OriginID, v_DepotID, v_Page);
+        }
+
         #endregion
     }
 }
