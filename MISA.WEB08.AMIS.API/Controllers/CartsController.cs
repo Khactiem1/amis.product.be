@@ -7,6 +7,10 @@ using MISA.WEB08.AMIS.Common.Result;
 using Microsoft.AspNetCore.Http;
 using MISA.WEB08.AMIS.Common.Enums;
 using MISA.WEB08.AMIS.Common.Resources;
+using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace MISA.WEB08.AMIS.API.Controllers
 {
@@ -146,6 +150,165 @@ namespace MISA.WEB08.AMIS.API.Controllers
                             Resource.MoreInfo_Exception,
                             HttpContext.TraceIdentifier
                         )
+            });
+        }
+
+        /// <summary> 
+        /// API trả về danh sách đã lọc và phân trang
+        /// <summary>
+        /// <param name="formData">Trường muốn filter và sắp xếp</param>
+        /// <return> Danh sách bản ghi sau khi phân trang, chỉ lấy ra số bản ghi và số trang yêu cầu, và tổng số lượg bản ghi có điều kiện <return>
+        /// Create by: Nguyễn Khắc Tiềm (21/09/2022)
+        [Authorize]
+        [HttpPost("fitter")]
+        public override async Task<IActionResult> GetFitterRecords([FromBody] Dictionary<string, object> formData)
+        {
+            var records = await Task.FromResult(_cartBL.GetFitterRecords(formData));
+            if (records != null)
+            {
+                return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+                {
+                    Success = true,
+                    Data = records
+                });
+            }
+            return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+            {
+                Success = false,
+                ErrorCode = MisaAmisErrorCode.NotFoundData,
+                Data = new MisaAmisErrorResult(
+                        MisaAmisErrorCode.NotFoundData,
+                        Resource.DevMsg_Exception,
+                        Resource.Message_data_change,
+                        Resource.MoreInfo_Exception,
+                        HttpContext.TraceIdentifier
+                    )
+            });
+        }
+
+        /// <summary>
+        /// API lấy ra địa chỉ
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        [HttpGet("GetAddress")]
+        public virtual async Task<IActionResult> GetAddress([FromQuery] string? v_Address, [FromQuery] int? v_ID)
+        {
+            var records = await Task.FromResult(_cartBL.GetAddress(v_Address, v_ID));
+            if (records != null)
+            {
+                return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+                {
+                    Success = true,
+                    Data = records
+                });
+            }
+            return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+            {
+                Success = false,
+                ErrorCode = MisaAmisErrorCode.NotFoundData,
+                Data = new MisaAmisErrorResult(
+                        MisaAmisErrorCode.NotFoundData,
+                        Resource.DevMsg_Exception,
+                        Resource.Message_data_change,
+                        Resource.MoreInfo_Exception,
+                        HttpContext.TraceIdentifier
+                    )
+            });
+        }
+
+        /// <summary> 
+        /// API xoá hàng loạt bản ghi
+        /// <summary>
+        /// <param name="listRecordID">Danh sách ID bản ghi muốn xoá</param>
+        /// <return> danh sách ID bản ghi sau khi xoá <return>
+        /// Create by: Nguyễn Khắc Tiềm (21/09/2022)
+        [HttpPost("ActionMultipleApi")]
+        public async Task<IActionResult> Actionall([FromBody] List<Guid> listRecordID, [FromQuery] string? action)
+        {
+            var result = await Task.FromResult(_cartBL.Actionall(JsonConvert.SerializeObject(listRecordID.Select(ds => new { id = ds })), listRecordID.Count, action));
+            if (result.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+                {
+                    Success = true,
+                    Data = result
+                });
+            }
+            return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+            {
+                Success = false,
+                ErrorCode = MisaAmisErrorCode.DeleteMultiple,
+                Data = new MisaAmisErrorResult(
+                            MisaAmisErrorCode.DeleteMultiple,
+                            Resource.DevMsg_DeleteMultipleFailed.ToString(),
+                            result.Data,
+                            Resource.MoreInfo_Exception,
+                            HttpContext.TraceIdentifier
+                        )
+            });
+        }
+
+        /// <summary>
+        /// Thêm một status order
+        /// </summary>
+        [Authorize]
+        [HttpGet("AddStatusOrder")]
+        public async Task<IActionResult> AddStatusOrder([FromQuery] string? orderID, [FromQuery] string? comment)
+        {
+            var result = await Task.FromResult(_cartBL.AddStatusOrder(orderID, comment, GetCurrentUser().EmployeeID.ToString()));
+            if (result.Success)
+            {
+                return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+                {
+                    Success = true,
+                    Data = result.Data
+                });
+            }
+            return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+            {
+                Success = false,
+                ErrorCode = MisaAmisErrorCode.DeleteMultiple,
+                Data = new MisaAmisErrorResult(
+                            MisaAmisErrorCode.DeleteMultiple,
+                            Resource.DevMsg_DeleteMultipleFailed.ToString(),
+                            result.Data,
+                            Resource.MoreInfo_Exception,
+                            HttpContext.TraceIdentifier
+                        )
+            });
+        }
+
+        /// <summary>
+        /// API lấy ra địa chỉ
+        /// </summary>
+        /// <param name="formData">Từ khoá tìm kiếm</param>
+        /// <returns>Danh sách record và tổng số bản ghi</returns>
+        /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
+        [HttpGet("GetStatusOrder")]
+        public virtual async Task<IActionResult> GetStatusOrder([FromQuery] string? v_OrderID)
+        {
+            var records = await Task.FromResult(_cartBL.GetStatusOrder(v_OrderID));
+            if (records != null)
+            {
+                return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+                {
+                    Success = true,
+                    Data = records
+                });
+            }
+            return StatusCode(StatusCodes.Status200OK, new ServiceResponse
+            {
+                Success = false,
+                ErrorCode = MisaAmisErrorCode.NotFoundData,
+                Data = new MisaAmisErrorResult(
+                        MisaAmisErrorCode.NotFoundData,
+                        Resource.DevMsg_Exception,
+                        Resource.Message_data_change,
+                        Resource.MoreInfo_Exception,
+                        HttpContext.TraceIdentifier
+                    )
             });
         }
 

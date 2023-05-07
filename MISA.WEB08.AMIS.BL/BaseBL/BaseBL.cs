@@ -259,7 +259,7 @@ namespace MISA.WEB08.AMIS.BL
         /// <param name="file">File execl</param>
         /// <returns></returns>
         /// Create by: Nguyễn Khắc Tiềm (26/09/2022)
-        public ServiceResponse ImportXLSX(IFormFile file, string userID)
+        public virtual ServiceResponse ImportXLSX(IFormFile file, string userID)
         {
             var messageError = "";
             if (file.Length > 0 && file.FileName.Contains(".xlsx"))
@@ -355,7 +355,7 @@ namespace MISA.WEB08.AMIS.BL
         /// <param name="formData">Trường muốn filter và sắp xếp</param>
         /// <returns>file Excel chứa dữ liệu danh sách </returns>
         /// CreatedBy: Nguyễn Khắc Tiềm (6/10/2022)
-        public string ExportData(Dictionary<string, object> formData)
+        public virtual string ExportData(Dictionary<string, object> formData)
         {
             var v_Select = formData.Keys.Contains("v_Select") ? JsonConvert.DeserializeObject<List<string>>(Convert.ToString(formData["v_Select"])) : new List<string>();
             List<T> records = (List<T>)GetFitterRecords(formData).RecordList;

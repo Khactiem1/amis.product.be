@@ -62,4 +62,36 @@ namespace MISA.WEB08.AMIS.Common.Enums
         /// </summary>
         Check = 1,
     }
+
+    /// <summary>
+    /// Trạng thái đơn hàng
+    /// </summary>
+    /// Create by: Nguyễn Khắc Tiềm (21/09/2022)
+    public enum StatusOrder : int
+    {
+        /// <summary>
+        /// Chờ xác nhận
+        /// </summary>
+        WaitConfirm = 0,
+
+        /// <summary>
+        /// Đã xác nhận
+        /// </summary>
+        Confirm = 1,
+
+        /// <summary>
+        /// Đang giao hàng
+        /// </summary>
+        Delivery = 2,
+
+        /// <summary>
+        /// Đã giao hàng
+        /// </summary>
+        Delivered = 3,
+
+        /// <summary>
+        /// Đơn bị huỷ
+        /// </summary>
+        Destroy = 4,
+    }
 }
