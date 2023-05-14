@@ -237,7 +237,7 @@ namespace MISA.WEB08.AMIS.API.Controllers
                 return StatusCode(StatusCodes.Status200OK, new ServiceResponse
                 {
                     Success = true,
-                    Data = result
+                    Data = result.Data
                 });
             }
             return StatusCode(StatusCodes.Status200OK, new ServiceResponse

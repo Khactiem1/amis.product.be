@@ -310,6 +310,7 @@ namespace MISA.WEB08.AMIS.DL
         public virtual ServiceResponse DeleteMultiple(string listRecordID, int count)
         {
             var rowAffects = 0;
+            var v_MessOut = "";
             using (var mysqlConnection = new MySqlConnection(DataContext.MySqlConnectionString))
             {
                 //nếu như kết nối đang đóng thì tiến hành mở lại
@@ -334,6 +335,7 @@ namespace MISA.WEB08.AMIS.DL
                             transaction: transaction,
                             commandType: CommandType.StoredProcedure
                             );
+                        v_MessOut = parameters.Get<string>("v_MessOut");
                         if (rowAffects >= count)
                         {
                             transaction.Commit();
@@ -366,13 +368,13 @@ namespace MISA.WEB08.AMIS.DL
                 return new ServiceResponse
                 {
                     Success = true,
-                    Data = rowAffects
+                    Data = v_MessOut
                 };
             }
             return new ServiceResponse
             {
                 Success = false,
-                Data = rowAffects
+                Data = v_MessOut
             };
         }
 

@@ -211,21 +211,7 @@ namespace MISA.WEB08.AMIS.BL
         /// CreatedBy: Nguyễn Khắc Tiềm (5/10/2022)
         public virtual ServiceResponse DeleteMultiple(string listRecordID, int count)
         {
-            int rowAffects = _baseDL.DeleteMultiple(listRecordID, count).Data;
-            if (rowAffects == 0)
-            {
-                return new ServiceResponse
-                {
-                    Success = false,
-                    ErrorCode = MisaAmisErrorCode.DeleteMultiple,
-                    Data = Resource.Message_data_change
-                };
-            }
-            return new ServiceResponse
-            {
-                Success = true,
-                Data = rowAffects
-            };
+            return _baseDL.DeleteMultiple(listRecordID, count);
         }
 
         /// <summary>

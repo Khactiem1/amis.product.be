@@ -36,19 +36,29 @@ namespace MISA.WEB08.AMIS.Common.Entities
         [ColumnName(Name = "Ghi chú", Width = 45)]
         public string Description { get; set; }
 
+        public string? CouponID { get; set; } = "";
+
+        public string? CouponCode { get; set; } = "";
+
+        public int? Percent { get; set; } = 0;
+
         [ColumnName(Name = "Hình thức thanh toán", Width = 45)]
         public TypeCheckout? TypeCheckout { get; set; }
 
         [ColumnName(Name = "Trạng thái", Width = 45)]
         public StatusOrder? Status { get; set; }
+
         public List<OrderDetail> OrderDetail { get; set; } = new List<OrderDetail>();
     }
     public class OrderDetail : Product
     {
         [Validate(PrimaryKey = true)]
         public Guid? OrderDetailID { get; set; }
+
         public Guid? OrderID { get; set; }
+
         public int? Quantity { get; set; }
+
         public double? PriceOrder { get; set; }
     }
 }
